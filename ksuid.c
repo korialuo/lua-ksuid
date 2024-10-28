@@ -28,10 +28,10 @@
 static const uint64_t EPOCH_STAMP = 1400000000;
 
 // A string-encoded minimum value for a KSUID
-static const char *MIN_STRING_ENCODED = "000000000000000000000000000";
+// static const char *MIN_STRING_ENCODED = "000000000000000000000000000";
 
 // A string-encoded maximum value for a KSUID
-static const char *MAX_STRING_ENCODED = "aWgEPTl1tmebfsQzFP4bxwgy80V";
+// static const char *MAX_STRING_ENCODED = "aWgEPTl1tmebfsQzFP4bxwgy80V";
 
 
 typedef struct {

@@ -76,7 +76,7 @@ void base62_encode(const uint8_t src[20], uint8_t dst[27]) {
 
     // Add padding at the head of the destination buffer for all bytes that were
     // not set.
-    strcpy_s((char *)dst, n, zero_string);
+    strncpy((char *)dst, zero_string, n);
 }
 
 // This function decodes the base 62 representation of the src KSUID to the

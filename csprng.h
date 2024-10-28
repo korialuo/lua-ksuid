@@ -6,6 +6,7 @@
 #define __csprng_h__
 
 #include <stdint.h>
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {

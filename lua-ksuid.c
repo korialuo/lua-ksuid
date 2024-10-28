@@ -19,7 +19,7 @@ struct ksuid_ctx {
 };
 
 static int
-lcreate(luaState *l) {
+lcreate(lua_State *l) {
     int32_t ref = luaL_ref(l, LUA_REGISTRYINDEX);
     struct ksuid_ctx* ctx = (struct ksuid_ctx *)lua_newuserdata(l, sizeof(*ctx));
     assert(ctx);
@@ -35,7 +35,7 @@ lcreate(luaState *l) {
 }
 
 static int
-ldestroy(luaState *l) {
+ldestroy(lua_State *l) {
     struct ksuid_ctx *ctx = (struct ksuid_ctx *)luaL_checkudata(l, 1, LKSUID_MT);
     if (!ctx)
         return luaL_argerror(l, 1, "parameter self invalid.");
@@ -49,7 +49,7 @@ ldestroy(luaState *l) {
 }
 
 static int
-lnext(luaState *l) {
+lnext(lua_State *l) {
     struct ksuid_ctx *ctx = (struct ksuid_ctx *)luaL_checkudata(l, 1, LKSUID_MT);
     if (!ctx)
         return luaL_argerror(l, 1, "parameter self invalid.");
@@ -66,7 +66,7 @@ lnext(luaState *l) {
 
 
 LUAMOD_API int
-luaopen_lksuid(luaState *l) {
+luaopen_lksuid(lua_State *l) {
     luaL_checkversion(l);
 
     luaL_Reg lib[] {

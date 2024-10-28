@@ -6,6 +6,8 @@
 #define __ksuid_h__
 
 #include <stdint.h>
+#include <stddef.h>
+#include <time.h>
 
 #ifdef __cplusplus
 extern "C" {
