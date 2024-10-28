@@ -88,7 +88,7 @@ luaopen_lksuid(lua_State *l) {
         lua_pop(l, 1);
     }
 
-    lua_newlib(l, lib);
+    luaL_newlib(l, lib);
 
     return 1;
 }
