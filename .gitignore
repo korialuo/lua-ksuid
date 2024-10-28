@@ -1,0 +1,15 @@
+
+/.idea
+/.vscode
+
+/cmake-build-debug
+/cmake-build-release
+
+*.o
+*.dll
+*.dll.a
+*.a
+*.so
+*.exe
+
+lua-ksuid
