@@ -7,6 +7,7 @@
 
 #include <lua.h>
 #include <lauxlib.h>
+#include <assert.h>
 
 #include "ksuid.h"
 
@@ -69,15 +70,15 @@ LUAMOD_API int
 luaopen_lksuid(lua_State *l) {
     luaL_checkversion(l);
 
-    luaL_Reg lib[] {
+    luaL_Reg lib[] = {
         {"create", lcreate},
-        {NULL, NULL},
+        {NULL, NULL}
     };
 
     luaL_Reg lib2[] = {
         {"__gc", ldestroy},
         {"next", lnext},
-        {NULL, NULL},
+        {NULL, NULL}
     };
 
     if (luaL_newmetatable(l, LKSUID_MT)) {
