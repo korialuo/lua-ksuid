@@ -15,11 +15,15 @@ extern "C" {
 
 uintptr_t ksuid_create();
 
+uintptr_t ksuid_parse(const char *v);
+
 int ksuid_gen_with_time(uintptr_t ctx, time_t time);
 
 int ksuid_gen(uintptr_t ctx);
 
 const char* ksuid_get_string(uintptr_t ctx);
+
+void ksuid_get_bytes(uintptr_t ctx, uint8_t dst[20]);
 
 void ksuid_destroy(uintptr_t ctx);
 

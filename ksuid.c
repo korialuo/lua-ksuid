@@ -7,6 +7,7 @@
 #include "csprng.h"
 
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 
@@ -28,10 +29,10 @@
 static const uint64_t EPOCH_STAMP = 1400000000;
 
 // A string-encoded minimum value for a KSUID
-// static const char *MIN_STRING_ENCODED = "000000000000000000000000000";
+static const char *MIN_STRING_ENCODED = "000000000000000000000000000";
 
 // A string-encoded maximum value for a KSUID
-// static const char *MAX_STRING_ENCODED = "aWgEPTl1tmebfsQzFP4bxwgy80V";
+static const char *MAX_STRING_ENCODED = "aWgEPTl1tmebfsQzFP4bxwgy80V";
 
 
 typedef struct {
@@ -49,6 +50,27 @@ uintptr_t ksuid_create() {
     }
     ksuid_t *c = (ksuid_t *)malloc(sizeof(*c));
     c->csprng = csprng;
+    return (uintptr_t)c;
+}
+
+uintptr_t ksuid_parse(const char *v) {
+    if (strlen(v) != STRING_ENCODE_LENGTH) {
+        return 0;
+    }
+    if (strcmp(v, MIN_STRING_ENCODED) < 0) {
+        return 0;
+    }
+    if (strcmp(v, MAX_STRING_ENCODED) > 0) {
+        return 0;
+    }
+    uintptr_t csprng = csprng_create();
+    if (!csprng) {
+        return 0;
+    }
+    ksuid_t *c = (ksuid_t *)malloc(sizeof(*c));
+    c->csprng = csprng;
+    strncpy(c->ksuid_str, v, STRING_ENCODE_LENGTH);
+    base62_decode((const uint8_t *)c->ksuid_str, c->ksuid);
     return (uintptr_t)c;
 }
 
@@ -83,6 +105,11 @@ inline int ksuid_gen(uintptr_t ctx) {
 const char* ksuid_get_string(uintptr_t ctx) {
     ksuid_t *c = (ksuid_t *)ctx;
     return (const char *)c->ksuid_str;
+}
+
+void ksuid_get_bytes(uintptr_t ctx, uint8_t dst[20]) {
+    ksuid_t *c = (ksuid_t *)ctx;
+    memcpy(dst, c->ksuid, BYTE_LENGTH);
 }
 
 void ksuid_destroy(uintptr_t ctx) {
