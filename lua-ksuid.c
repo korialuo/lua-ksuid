@@ -48,7 +48,7 @@ lparse(lua_State *l) {
     ctx->ref = ref;
     ctx->ksuid = ksuid_parse(v);
     if (ctx->ksuid == 0) {
-        luaL_unref(l, ref);
+        luaL_unref(l, LUA_REGISTRYINDEX, ref);
         return luaL_argerror(l, 1, "parameter 1 is not a valid ksuid encoded string.");
     }
 
@@ -110,7 +110,7 @@ lraw(lua_State *l) {
 
     uint8_t raw[20];
     ksuid_get_bytes(ctx->ksuid, raw);
-    lua_pushlstring(l, raw, sizeof(raw));
+    lua_pushlstring(l, (const char *)raw, sizeof(raw));
 
     return 1;
 }
